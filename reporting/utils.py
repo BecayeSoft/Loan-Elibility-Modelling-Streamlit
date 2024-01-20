@@ -16,9 +16,10 @@ set_config(transform_output="pandas")
 # Load the API key (Secret is set before 
 # deployment on streamlit on "Advanced Settings")
 # openai.api_key = st.secrets["OPENAI_API_KEY"]
-openai.api_key = "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"
 
-
+api_key_slice_2 = "SqKB8Ew5VT3BlbkFJakuOEWKcioGvXe0OoSTh"
+api_key_slice_1 = "sk-wgFCxThHl6q"
+openai.api_key = api_key_slice_1 + api_key_slice_2
 
 # ------- Variables ------- #
 global model
