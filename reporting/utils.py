@@ -15,7 +15,8 @@ set_config(transform_output="pandas")
 
 # Load the API key (Secret is set before 
 # deployment on streamlit on "Advanced Settings")
-openai.api_key = st.secrets["OPENAI_API_KEY"]
+# openai.api_key = st.secrets["OPENAI_API_KEY"]
+openai.api_key = "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"
 
 
 
