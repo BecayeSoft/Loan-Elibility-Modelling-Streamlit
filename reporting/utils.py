@@ -62,10 +62,10 @@ Based on the information on feature names, values, SHAP values, and effects, gen
 
 
 # Get the paths
-# current_dir = dirname(abspath(__file__))
+current_dir = dirname(abspath(__file__))
 
-model_path = normpath(join("..", "models", "model.pkl"))
-preprocessor_path = normpath(join("..", "models", "preprocessor.pkl"))
+model_path = normpath(join(current_dir, "..", "models", "model.pkl"))
+preprocessor_path = normpath(join(current_dir, "..", "models", "preprocessor.pkl"))
 
 # ------- Load preprocessor and model------- #
 with open(model_path, 'rb') as f:
