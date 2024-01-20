@@ -18,8 +18,8 @@ global preprocessor
 
 # Get the paths
 current_dir = dirname(abspath(__file__))
-model_path = normpath(join(current_dir, "..", "models", "model.pkl"))
-preprocessor_path = normpath(join(current_dir, "..", "models", "preprocessor.pkl"))
+model_path = normpath(join(current_dir, "models", "model.pkl"))
+preprocessor_path = normpath(join(current_dir, "models", "preprocessor.pkl"))
 
 
 # ------- Load preprocessor and model------- #
@@ -34,7 +34,7 @@ def load_test_data():
     """Load test data"""
     # Current directory
     current_dir = dirname(abspath(__file__))
-    test_path = normpath(join(current_dir, "..", "data", "raw", "loan-data-test.csv"))
+    test_path = normpath(join(current_dir, "data", "raw", "loan-data-test.csv"))
     X_test = pd.read_csv(test_path)
 
     # Drop the Loan_ID column

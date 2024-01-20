@@ -1,3 +1,4 @@
+import streamlit as st
 import pandas as pd
 import numpy as np
 from joblib import load
@@ -12,13 +13,10 @@ from os.path import dirname, join, abspath, normpath
 # Set transformers output to Pandas DataFrame instead of NumPy array
 set_config(transform_output="pandas")
 
+# Load the API key (Secret is set before 
+# deployment on streamlit on "Advanced Settings")
+openai.api_key = st.secrets["OPENAI_API_KEY"]
 
-# Current directory
-current_dir = dirname(abspath(__file__))
-credentials_path = normpath(join(current_dir, "..", "..", "credentials.env"))
-
-_ = load_dotenv(credentials_path)
-openai.api_key = os.environ['OPENAI_API_KEY']
 
 
 # ------- Variables ------- #
