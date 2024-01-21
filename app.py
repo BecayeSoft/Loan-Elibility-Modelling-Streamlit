@@ -113,6 +113,7 @@ def main():
 
     st.write(f"# Secrets")
     st.write(st.secrets)
+    st.write(st.secrets.OPENAI_API_KEY)
 
     # Display the prediction
     if prediction == 1:
