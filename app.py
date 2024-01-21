@@ -39,6 +39,7 @@ def load_test_data():
 
     # Drop the Loan_ID column
     X_test.drop(columns=['Loan_ID'], inplace=True)
+    X_test.drop(columns=['Married', 'Education'], inplace=True)
     
     # Mapping number of dependents to numerical values
     X_test.Dependents.replace('3+', 3, inplace=True)
@@ -61,15 +62,15 @@ def main():
     st.sidebar.header("Applicant Data")
 
     gender = st.sidebar.selectbox("Gender", ["Male", "Female"])
-    married = st.sidebar.selectbox("Married", ["Yes", "No"])
+    # married = st.sidebar.selectbox("Married", ["Yes", "No"])
     dependents = st.sidebar.selectbox("Dependents", ["0", "1", "2", "3 or more"])
-    education = st.sidebar.selectbox("Education", ["Graduate", "Not Graduate"])
+    # education = st.sidebar.selectbox("Education", ["Graduate", "Not Graduate"])
     self_Employed = st.sidebar.selectbox("Self Employed", ["Yes", "No"])
     applicantIncome = st.sidebar.slider("ApplicantIncome", 150, 81000, 250)
     coapplicantIncome = st.sidebar.slider("Coapplicant Income", 0, 41667, 0)
     loanAmount = st.sidebar.slider("Loan Amount", 9, 700, 100)
     loan_Amount_Term = st.sidebar.slider("Loan Amount Term", 12, 480, 360)
-    credit_History = st.sidebar.selectbox("Has Credit History", ["Yes", "No"])      # TODO convert to int
+    credit_History = st.sidebar.selectbox("Has Credit History", ["Yes", "No"])
     property_Area = st.sidebar.selectbox("Property Area", ["Urban", "Rural", "Semiurban"])
 
     # Mapping user input to numerical values
@@ -79,9 +80,9 @@ def main():
     # Create a dictionary to store user input
     user_input = {
         'Gender': gender,
-        'Married': married,
+        # 'Married': married,
         'Dependents': dependents,
-        'Education': education,
+        # 'Education': education,
         'Self_Employed': self_Employed,
         'ApplicantIncome': applicantIncome,
         'CoapplicantIncome': coapplicantIncome,

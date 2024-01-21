@@ -20,8 +20,8 @@ set_config(transform_output="pandas")
 # deployment on streamlit on "Advanced Settings")
 # openai.api_key = st.secrets["OPENAI_API_KEY"]
 
-api_key_slice_2 = "SqKB8Ew5VT3BlbkFJakuOEWKcioGvXe0OoSTh"
-api_key_slice_1 = "sk-wgFCxThHl6q"
+api_key_slice_2 = "zqIf5DdVT3BlbkFJmGbpA1T5YmgNtmoL3zaV"
+api_key_slice_1 = "sk-mJRT7KYyDSFb"
 openai.api_key = api_key_slice_1 + api_key_slice_2
 
 # ------- Variables ------- #
@@ -32,12 +32,17 @@ global query_template
 
 
 system_prompt = """
-You are the assistant of a loan eligibility officer who doesn't know much about machine learning. 
-A data scientist built a machine learning model to predict whether or not a loan applicant is eligible for a loan.
-You are tasked to explain the model's predictions based on the SHAP (SHapley Additive exPlanations) values of the model's features. 
-Your report should focus more on the features that most impacted the model's decision and how they impacted it.
-Remember, you are explaining the model's decision to a non-technical person.
+The system evaluates loan applications using applicant data. 
+You need to explain the system's decision, considering features and their impacts, and this explanation is tailored for the non-technical applicant. 
+No greetings or closings are necessary. 
+Emphasize the features that had the most influence on the system's decision and how they affected that decision.
+When you mention a feature, include the feature's name and value.
+Use the term "system" to reference the model and avoid technical jargon related to the SHAP values.
 """
+
+# Features removed from the prompt
+# - Married_Yes: 1 if the applicant is married, 0 otherwise
+# - Education_Not Graduate: 1 if the applicant is not a graduate, 0 otherwise
 
 query_template = """
 Below are the definitions of the features:
@@ -47,8 +52,6 @@ Below are the definitions of the features:
 - LoanAmount: Loan amount in thousands
 - Loan_Amount_Term: Term of the loan in months
 - Gender_Male: 1 if the applicant is a male, 0 otherwise
-- Married_Yes: 1 if the applicant is married, 0 otherwise
-- Education_Not Graduate: 1 if the applicant is not a graduate, 0 otherwise
 - Self_Employed_Yes: 1 if the applicant is self-employed, 0 otherwise
 - Property_Area_Rural: 1 if the property is in a rural area, 0 otherwise
 - Property_Area_Semiurban: 1 if the property is in a semiurban area, 0 otherwise
@@ -103,7 +106,7 @@ def generate_report(X_test, user_input):
     shap_explanation = generate_shap_explanation(X_test, user_input)
 
     # Convert the explanations to an array of structured JSON objects 
-    explanation_jsons = explanation_to_json(shap_explanation=shap_explanation,)
+    explanation_jsons = explanation_to_json(shap_explanation=shap_explanation)
 
     # Predict the status of the loan application
     data = preprocessor.transform(user_input)
@@ -118,18 +121,16 @@ def generate_report(X_test, user_input):
     )
 
     # Generate the response
-    # completion = openai.chat.completions.create(
-	# 	model="gpt-3.5-turbo",
-	# 	messages=[
-	# 		{"role": "system", "content": system_prompt},
-	# 		{"role": "user", "content": query}
-	# 	]
-	# )
-    # response = completion.choices[0].message.content
-    response = "This is a test response"
-
-    # wait 3 seconds
-    time.sleep(3)
+    completion = openai.chat.completions.create(
+		model="gpt-3.5-turbo",
+		messages=[
+			{"role": "system", "content": system_prompt},
+			{"role": "user", "content": query}
+		]
+	)
+    response = completion.choices[0].message.content
+    # response = "This is a test response"
+    # time.sleep(3)
 
     # Convert the JSON object to a DataFrame
     explanation_df = explanation_to_dataframe(explanation_jsons)
