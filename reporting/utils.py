@@ -121,15 +121,15 @@ def generate_report(X_test, user_input):
     )
 
     # Generate the response
-    completion = openai.chat.completions.create(
-		model="gpt-3.5-turbo",
-		messages=[
-			{"role": "system", "content": system_prompt},
-			{"role": "user", "content": query}
-		]
-	)
-    response = completion.choices[0].message.content
-    # response = "This is a test response"
+    # completion = openai.chat.completions.create(
+	# 	model="gpt-3.5-turbo",
+	# 	messages=[
+	# 		{"role": "system", "content": system_prompt},
+	# 		{"role": "user", "content": query}
+	# 	]
+	# )
+    # response = completion.choices[0].message.content
+    response = "This is a test response"
     # time.sleep(3)
 
     # Convert the JSON object to a DataFrame
@@ -174,8 +174,9 @@ def explanation_to_json(shap_explanation):
     explanation_jsons = []
     feature_names = [
         'Dependents', 'Applicant Income', 'Coapplicant Income', 'Loan Amount',
-       'Loan Amount Term', 'Gender', 'Married',
-       'Education', 'Self Employed', 'Property Area: Rural',
+        'Loan Amount Term', 'Gender', 
+        # 'Married', 'Education', 
+        'Self Employed', 'Property Area: Rural',
        'Property Area: Semiurban', 'Property Area: Urban', 'Has Credit History'
     ]
     
