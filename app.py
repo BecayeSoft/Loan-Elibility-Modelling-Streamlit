@@ -111,6 +111,9 @@ def main():
         # Generate the report and explanation
         report, shap_explanation = generate_report(X_test, user_input=input_df)
 
+    st.write(f"# Secrets")
+    st.write(st.secrets)
+
     # Display the prediction
     if prediction == 1:
         st.write("Congratulations 🎉")
