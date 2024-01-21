@@ -16,13 +16,9 @@ import time
 # Set transformers output to Pandas DataFrame instead of NumPy array
 set_config(transform_output="pandas")
 
-# Load the API key (Secret is set before 
-# deployment on streamlit on "Advanced Settings")
-# openai.api_key = st.secrets.OPENAI_API_KEY
+# Load the API key from streamlit secrets
+openai.api_key = st.secrets.OPENAI_API_KEY
 
-# api_key_slice_2 = "zqIf5DdVT3BlbkFJmGbpA1T5YmgNtmoL3zaV"
-# api_key_slice_1 = "sk-mJRT7KYyDSFb"
-# openai.api_key = api_key_slice_1 + api_key_slice_2
 
 # ------- Variables ------- #
 global model
@@ -121,16 +117,16 @@ def generate_report(X_test, user_input):
     )
 
     # Generate the response
-    # completion = openai.chat.completions.create(
-	# 	model="gpt-3.5-turbo",
-	# 	messages=[
-	# 		{"role": "system", "content": system_prompt},
-	# 		{"role": "user", "content": query}
-	# 	]
-	# )
-    # response = completion.choices[0].message.content
-    response = "This is a test response"
-    time.sleep(2)
+    completion = openai.chat.completions.create(
+		model="gpt-3.5-turbo",
+		messages=[
+			{"role": "system", "content": system_prompt},
+			{"role": "user", "content": query}
+		]
+	)
+    response = completion.choices[0].message.content
+    # response = "This is a test response"
+    # time.sleep(2)
 
     # Convert the JSON object to a DataFrame
     explanation_df = explanation_to_dataframe(explanation_jsons)

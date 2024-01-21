@@ -92,7 +92,6 @@ def main():
         'Property_Area': property_Area
     }
 
-
     # Convert user input to DataFrame for prediction
     input_df = pd.DataFrame([user_input])
 
@@ -110,10 +109,6 @@ def main():
     with st.spinner("Please take a coffee and chill while we process your application..."):
         # Generate the report and explanation
         report, shap_explanation = generate_report(X_test, user_input=input_df)
-
-    st.write(f"# Secrets")
-    st.write(st.secrets)
-    st.write(st.secrets.OPENAI_API_KEY)
 
     # Display the prediction
     if prediction == 1:
